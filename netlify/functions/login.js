@@ -10,7 +10,7 @@ exports.handler = async (event, context) => {
   try {
     const { username, password } = JSON.parse(event.body);
 
-    const INTERNAL_API_URL = "https://enrolled-meant-pamela-jefferson.trycloudflare.com/auth";
+    const INTERNAL_API_URL = "https://wallpapers-exhibition-cancellation-speeches.trycloudflare.com/auth";
 
     
     const response = await axios.post(INTERNAL_API_URL, {
