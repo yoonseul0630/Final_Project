@@ -10,11 +10,9 @@ exports.handler = async (event, context) => {
   try {
     const { username, password } = JSON.parse(event.body);
 
-    // [중요] Cloudflare Tunnel을 통해 발급받은 실제 URL을 여기에 넣으세요.
-    // 예: "https://auth-api.yourdomain.com/auth"
-    const INTERNAL_API_URL = "여러분의_클라우드플레어_터널_주소/auth";
+    const INTERNAL_API_URL = "https://plans-phantom-recorders-graph.trycloudflare.com/auth";
 
-    // 내부망의 Python API로 인증 요청 전달
+    
     const response = await axios.post(INTERNAL_API_URL, {
       username: username,
       password: password
@@ -22,7 +20,7 @@ exports.handler = async (event, context) => {
       timeout: 5000 // 5초 안에 응답 없으면 타임아웃
     });
 
-    // 인증 성공 시 (Python API가 success: true를 보내준 경우)
+    
     return {
       statusCode: 200,
       body: JSON.stringify({ 
