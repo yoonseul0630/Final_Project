@@ -119,7 +119,8 @@ body {
   background: transparent;
   border: none;
   font-weight: bold;
-  color: white;
+  color: white !important;
   height: 80px;
   font-size: 1em;
+  text-align: center;
 }
