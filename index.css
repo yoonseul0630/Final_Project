@@ -72,7 +72,8 @@ body {
 }
 .login h2 {
   font-size: 2em;
-  color: #fff;
+  color: #0078ff;
+  font-weight: bold;
 }
 .login .inputBx {
   position: relative;
