@@ -4,22 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>onpath</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        h2 { color: #1a73e8; margin-bottom: 1.5rem; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #1a73e8; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; transition: background 0.3s; }
-        button:hover { background: #1557b0; }
-        #status { margin-top: 1rem; padding: 10px; border-radius: 6px; display: none; }
-        .success { background: #e6f4ea; color: #1e8e3e; display: block !important; }
-        .error { background: #fce8e6; color: #d93025; display: block !important; }
-        .loading { color: #666; font-style: italic; }
-    </style>
+   <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
-<div class="login-card">
+<!-- <div class="login-card">
     <h2>onpath</h2>
     <p>로그인하세요</p>
     <form id="authForm">
@@ -28,8 +17,33 @@
         <button type="submit" id="submitBtn">인증 및 VPN 연결</button>
     </form>
     <div id="status"></div>
+</div> -->
+ <form id="authForm">
+<div class="ring">
+  <i style="--clr:#47bcf2;"></i>
+  <i style="--clr:#0026e4;"></i>
+  <i style="--clr:#c9f8ff;"></i>
+  <div class="login">
+    <h2>ON PATH</h2>
+    <div class="inputBx">
+      <input type="text" id="username" placeholder="ID">
+    </div>
+    <div class="inputBx">
+      <input type="password" id="password" placeholder="Password">
+    </div>
+    <div class="inputBx">
+      <input type="submit" value="Sign in">
+      
+    </div>
+     <button type="submit" id="submitBtn">인증 및 VPN 연결</button>
+    
+  </div>
 </div>
+</form>
 
+
+
+    <!--    스크립트   -->>
 <script>
     const authForm = document.getElementById('authForm');
     const statusDiv = document.getElementById('status');
@@ -38,7 +52,6 @@
     authForm.onsubmit = async (e) => {
         e.preventDefault();
         
-        // UI 상태 초기화
         statusDiv.className = '';
         statusDiv.innerText = '서버 검증 중...';
         statusDiv.style.display = 'block';
@@ -50,7 +63,7 @@
         };
 
         try {
-            // Netlify Functions의 login 함수를 호출
+            // Netlify Functions의 login 호출
             const response = await fetch('/.netlify/functions/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
