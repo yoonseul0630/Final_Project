@@ -119,8 +119,11 @@ body {
   background: transparent;
   border: none;
   font-weight: bold;
-  color: white !important;
+
   height: 80px;
   font-size: 1em;
   text-align: center;
+}
+strong {
+  color: white !important;
 }
