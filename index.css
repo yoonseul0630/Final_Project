@@ -125,3 +125,9 @@ body {
   font-size: 1em;
   text-align: center;
 }
+.title{
+  font-family: "Cause", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
