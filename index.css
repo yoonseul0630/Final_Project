@@ -114,7 +114,7 @@ body {
   color: #fff;
   text-decoration: none;
 }
-button[type="submit"] {
+.status {
   width: 300px;
   background: transparent;
   border: none;
