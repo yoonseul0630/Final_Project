@@ -44,6 +44,15 @@ body {
   border: 6px solid var(--clr);
   filter: drop-shadow(0 0 20px var(--clr));
 }
+.ring:hover .title {
+  /* color: #0026e4;
+  transition: ease-in 0.3s;
+  text-shadow:
+    0 0 5px var(--clr),
+    0 0 10px var(--clr),
+    0 0 20px var(--clr),
+    0 0 40px var(--clr); */
+}
 @keyframes animate {
   0% {
     transform: rotate(0deg);

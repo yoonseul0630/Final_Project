@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>onpath</title>
-   <link rel="stylesheet" href="index.css">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cause:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cause:wght@700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- <div class="login-card">
+    <!-- <div class="login-card">
     <h2>onpath</h2>
     <p>로그인하세요</p>
     <form id="authForm">
@@ -21,77 +23,78 @@
     </form>
     <div id="status"></div>
 </div> -->
- <form id="authForm">
-<div class="ring">
-  <i style="--clr:#47bcf2;"></i>
-  <i style="--clr:#0026e4;"></i>
-  <i style="--clr:#c9f8ff;"></i>
-  <div class="login">
-    <h2 class="title">ON PATH</h2>
-    <div class="inputBx">
-      <input type="text" id="username" placeholder="ID">
-    </div>
-    <div class="inputBx">
-      <input type="password" id="password" placeholder="Password">
-    </div>
-    <div class="inputBx">
-      <!-- <input type="submit" value="Sign in"> -->
-      <input type="submit" id="submitBtn" value="Sign in"></button>
-    </div>
-     <!-- <button type="submit" id="submitBtn">인증 및 VPN 연결</button> -->
-    <div id="status"></div>
-  </div>
-</div>
-</form>
+    <form id="authForm">
+        <div class="ring">
+            <i style="--clr:#47bcf2;"></i>
+            <i style="--clr:#0026e4;"></i>
+            <i style="--clr:#c9f8ff;"></i>
+            <div class="login">
+                <h2 class="title">ON PATH</h2>
+                <div class="inputBx">
+                    <input type="text" id="username" placeholder="ID">
+                </div>
+                <div class="inputBx">
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                <div class="inputBx">
+                    <!-- <input type="submit" value="Sign in"> -->
+                    <input type="submit" id="submitBtn" value="Sign in"></button>
+                </div>
+                <!-- <button type="submit" id="submitBtn">인증 및 VPN 연결</button> -->
+                <div id="status"></div>
+            </div>
+        </div>
+    </form>
 
 
 
     <!--    스크립트   -->>
-<script>
-    const authForm = document.getElementById('authForm');
-    const statusDiv = document.getElementById('status');
-    const submitBtn = document.getElementById('submitBtn');
+    <script>
+        const authForm = document.getElementById('authForm');
+        const statusDiv = document.getElementById('status');
+        const submitBtn = document.getElementById('submitBtn');
 
-    authForm.onsubmit = async (e) => {
-        e.preventDefault();
-        
-        statusDiv.className = '';
-        statusDiv.innerText = '서버 검증 중...';
-      
-        submitBtn.disabled = true;
+        authForm.onsubmit = async (e) => {
+            e.preventDefault();
 
-        const credentials = {
-            username: document.getElementById('username').value,
-            password: document.getElementById('password').value
-        };
+            statusDiv.className = '';
+            statusDiv.innerText = '서버 검증 중...';
 
-        try {
-            // Netlify Functions의 login 호출
-            const response = await fetch('/.netlify/functions/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(credentials)
-            });
+            submitBtn.disabled = true;
 
-            const result = await response.json();
+            const credentials = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
 
-            if (response.ok && result.status === "success") {
-                statusDiv.className = 'success';
-                statusDiv.innerHTML = `<strong>인증 성공!</strong><br>환영합니다    ${credentials.username}님<br>잠시 후 VPN 터널링을 시작합니다.`;
-                
-                // 여기서 실제 WireGuard Config 다운로드나 실행 로직을 추가하게 됩니다.
-                console.log("VPN Key Data:", result.data);
-            } else {
-                throw new Error(result.message || '인증 정보가 올바르지 않습니다.');
+            try {
+                // Netlify Functions의 login 호출
+                const response = await fetch('/.netlify/functions/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(credentials)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.status === "success") {
+                    statusDiv.className = 'success';
+                    statusDiv.innerHTML = `<strong>인증 성공!</strong><br>환영합니다    ${credentials.username}님<br>잠시 후 VPN 터널링을 시작합니다.`;
+
+                    // 여기서 실제 WireGuard Config 다운로드나 실행 로직을 추가하게 됩니다.
+                    console.log("VPN Key Data:", result.data);
+                } else {
+                    throw new Error(result.message || '인증 정보가 올바르지 않습니다.');
+                }
+            } catch (err) {
+                statusDiv.className = 'error';
+                statusDiv.innerText = '인증 실패: ' + err.message;
+            } finally {
+                submitBtn.disabled = false;
             }
-        } catch (err) {
-            statusDiv.className = 'error';
-            statusDiv.innerText = '인증 실패: ' + err.message;
-        } finally {
-            submitBtn.disabled = false;
-        }
-    };
-</script>
+        };
+    </script>
 
 </body>
+
 </html>
