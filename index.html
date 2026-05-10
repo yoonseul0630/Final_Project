@@ -79,10 +79,15 @@
 
                 if (response.ok && result.status === "success") {
                     statusDiv.className = 'success';
-                    statusDiv.innerHTML = `<strong>인증 성공!</strong><br>환영합니다    ${credentials.username}님<br>잠시 후 VPN 터널링을 시작합니다.`;
+                    statusDiv.innerHTML = `<strong>인증 성공!</strong><br>환영합니다 ${credentials.username}님<br>잠시 후 이동합니다.`;
 
-                    // 여기서 실제 WireGuard Config 다운로드나 실행 로직을 추가하게 됩니다.
                     console.log("VPN Key Data:", result.data);
+
+                    // 2초 뒤에 실제 내부 서버 접속 가이드나 대시보드로 이동
+                    setTimeout(() => {
+                        window.location.href = "http://192.168.7.2"; // 바로 내부망 접속 시도
+                        // 또는 다른 성공 페이지로 이동
+                    }, 2000);
                 } else {
                     throw new Error(result.message || '인증 정보가 올바르지 않습니다.');
                 }

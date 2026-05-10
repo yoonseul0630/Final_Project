@@ -1,32 +1,32 @@
-// netlify/functions/login.js
 const axios = require('axios');
 
 exports.handler = async (event, context) => {
-  // POST 요청만 허용
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
   try {
     const { username, password } = JSON.parse(event.body);
-
     const INTERNAL_API_URL = "https://yang-advisors-mtv-adoption.trycloudflare.com/auth";
 
-    
+    // 1. Flask 서버로 인증 요청 보냄
     const response = await axios.post(INTERNAL_API_URL, {
       username: username,
       password: password
     }, {
-      timeout: 5000 // 5초 안에 응답 없으면 타임아웃
+      timeout: 5000 
     });
 
-    
+    // 2. Flask가 보내준 데이터를 그대로 받아서 클라이언트에 전달
+    // Flask에서 보낸 {"status": "success", "data": "..."} 등이 여기에 담깁니다.
     return {
       statusCode: 200,
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
         status: "success", 
         message: "FreeIPA 인증 완료",
-        user: username 
+        user: username,
+        data: response.data.data // Flask가 준 'data' 필드를 프론트엔드에 전달
       })
     };
 
@@ -40,7 +40,11 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: error.response ? error.response.status : 500,
-      body: JSON.stringify({ status: "fail", message: message })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        status: "fail", 
+        message: message 
+      })
     };
   }
 };
