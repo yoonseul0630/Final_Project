@@ -7,9 +7,8 @@ exports.handler = async (event, context) => {
 
   try {
     const { username, password } = JSON.parse(event.body);
-    const INTERNAL_API_URL = "https://extract-syndicate-withdrawal-pointed.trycloudflare.com/auth";
+    const INTERNAL_API_URL = "https://adams-dayton-model-allowing.trycloudflare.com/auth";
 
-    // 1. Flask 서버로 인증 요청 보냄
     const response = await axios.post(INTERNAL_API_URL, {
       username: username,
       password: password
@@ -17,8 +16,6 @@ exports.handler = async (event, context) => {
       timeout: 5000 
     });
 
-    // 2. Flask가 보내준 데이터를 그대로 받아서 클라이언트에 전달
-    // Flask에서 보낸 {"status": "success", "data": "..."} 등이 여기에 담깁니다.
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
@@ -26,7 +23,7 @@ exports.handler = async (event, context) => {
         status: "success", 
         message: "FreeIPA 인증 완료",
         user: username,
-        data: response.data.data // Flask가 준 'data' 필드를 프론트엔드에 전달
+        data: response.data.data 
       })
     };
 
