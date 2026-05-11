@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
 
   try {
     const { username, password } = JSON.parse(event.body);
-    const INTERNAL_API_URL = "https://gibraltar-aqua-true-baptist.trycloudflare.com/auth";
+    const INTERNAL_API_URL = "https://extract-syndicate-withdrawal-pointed.trycloudflare.com/auth";
 
     // 1. Flask 서버로 인증 요청 보냄
     const response = await axios.post(INTERNAL_API_URL, {
