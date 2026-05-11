@@ -1,4 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
+:root {
+  --bg: #030712;
+  --surface: #0f172a;
+  --accent: #00f0ff;
+  --accent-dim: rgba(0, 240, 255, 0.15);
+  --text-main: #f8fafc;
+  --text-dim: #94a3b8;
+  --terminal-green: #22c55e;
+  --glitch-speed: 3s;
+}
 * {
   margin: 0;
   padding: 0;
@@ -13,6 +22,31 @@ body {
   background: #111;
   width: 100%;
   overflow: hidden;
+  background-color: var(--bg);
+  color: var(--text-main);
+  font-family: "Outfit", sans-serif;
+}
+body::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.02),
+      rgba(0, 255, 0, 0.01),
+      rgba(0, 0, 255, 0.02)
+    );
+  z-index: 9999;
+  background-size:
+    100% 4px,
+    3px 100%;
+  pointer-events: none;
 }
 .ring {
   position: relative;
@@ -105,10 +139,17 @@ body {
 .login .inputBx input[type="submit"] {
   width: 100%;
   background: #0078ff;
-  background: linear-gradient(45deg, #0026e4, #c9f8ff);
+  background-color: transparent;
   border: none;
   cursor: pointer;
-  color: black;
+  color: #fff;
+  font-family: "Fira Code", monospace;
+  font-weight: 900;
+  transition: ease-in, 2s;
+}
+.login .inputBx input[type="submit"]:hover {
+  transition: ease-in, 0.3s;
+  color: #0078ff;
 }
 .login .inputBx input::placeholder {
   color: rgba(255, 255, 255, 0.75);
@@ -136,8 +177,9 @@ body {
   text-align: center;
 }
 .title {
-  font-family: "Cause", cursive;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
+  font-family: "Fira Code", monospace;
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: var(--accent);
+  text-decoration: none;
 }

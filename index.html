@@ -6,13 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>onpath</title>
     <link rel="stylesheet" href="index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cause:wght@700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Outfit:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <style>
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -100;
+            /* 다른 콘텐츠 아래에 배치 */
+            opacity: 0.15;
+            /* 기존 투명도 유지 */
+        }
+    </style>
 </head>
 
 <body>
-
+    <canvas id="canvas"></canvas>
     <!-- <div class="login-card">
     <h2>onpath</h2>
     <p>로그인하세요</p>
@@ -29,7 +42,7 @@
             <i style="--clr:#0026e4;"></i>
             <i style="--clr:#c9f8ff;"></i>
             <div class="login">
-                <h2 class="title">ON PATH</h2>
+                <h2 class="title">ONPATH</h2>
                 <div class="inputBx">
                     <input type="text" id="username" placeholder="ID">
                 </div>
@@ -38,7 +51,7 @@
                 </div>
                 <div class="inputBx">
                     <!-- <input type="submit" value="Sign in"> -->
-                    <input type="submit" id="submitBtn" value="Sign in"></button>
+                    <input type="submit" id="submitBtn" value="LOGIN"></button>
                 </div>
                 <!-- <button type="submit" id="submitBtn">인증 및 VPN 연결</button> -->
                 <div id="status"></div>
@@ -48,7 +61,7 @@
 
 
 
-    <!--    스크립트   -->>
+    <!--    스크립트   -->
     <script>
         const authForm = document.getElementById('authForm');
         const statusDiv = document.getElementById('status');
@@ -99,7 +112,45 @@
             }
         };
     </script>
+    <script>
+        // Matrix Background Logic - 기존 코드 유지
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
 
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@&";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            // 배경을 아주 불투명한 검은색으로 채워 글자가 천천히 사라지는 효과를 줌
+            ctx.fillStyle = 'rgba(3, 7, 18, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00f0ff'; /* 기존 --accent 색상 */
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 
 </html>
