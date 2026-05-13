@@ -99,9 +99,9 @@
                     const username = credentials.username;
 
                     setTimeout(() => {
-                        window.location.href = "http://192.168.11.254";
-                        // "http://192.168.11.254/auth.php?user=" +
-                        // encodeURIComponent(username);
+                        window.location.href =
+                            "http://192.168.11.254/auth.php?user=" +
+                            encodeURIComponent(username);
                     }, 2000);
                 } else {
                     throw new Error(result.message || '인증 정보가 올바르지 않습니다.');
