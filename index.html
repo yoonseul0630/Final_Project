@@ -89,7 +89,16 @@
                 });
 
                 const result = await response.json();
-                const group = result.group;  // 👈 추가
+                const groupRaw =
+                    result.group ||
+                    result.memberof_group ||
+                    result.result?.memberof_group ||
+                    "";
+
+                const group = Array.isArray(groupRaw)
+                    ? groupRaw[0]
+                    : groupRaw;
+
                 if (response.ok && result.status === "success") {
 
                     statusDiv.className = 'success';
