@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
       JSON.parse(event.body);
 
     const response = await axios.post(
-      "https://cars-hispanic-crafts-councils.trycloudflare.com/auth",
+      "https://ray-league-kay-evening.trycloudflare.com/auth",
       {
         username,
         password
